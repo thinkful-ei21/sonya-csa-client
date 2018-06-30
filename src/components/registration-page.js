@@ -1,5 +1,5 @@
 import React from 'react';
-
+import {Redirect, Link} from 'react-router-dom';
 import RegistrationForm from './registration-form';
 
 export default function RegistrationPage(props) {
