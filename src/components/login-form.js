@@ -1,8 +1,13 @@
 import React from 'react';
 import {Field, focus, reduxForm} from 'redux-form';
+import Input from './input';
+import {login} from '../actions/auth';
 import {required, nonEmpty} from '../validators';
 
 export class LoginForm extends React.Component {
+  onSubmit(values) {
+      return this.props.dispatch(login(values.username, values.password));
+  }
   
   render() {
     let error;
@@ -22,7 +27,7 @@ export class LoginForm extends React.Component {
             {error}
             <label htmlFor='username'>Username</label>
             <Field
-                    component='input'
+                    component={Input}
                     type="text"
                     name="username"
                     id="username"
@@ -30,7 +35,7 @@ export class LoginForm extends React.Component {
                 />
                 <label htmlFor="password">Password</label>
                 <Field
-                    component='input'
+                    component={Input}
                     type="password"
                     name="password"
                     id="password"
