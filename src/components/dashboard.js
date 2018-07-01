@@ -1,12 +1,16 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import {Redirect} from 'react-router-dom';
+
 import requiresLogin from './requires-login';
 import {fetchProtectedData} from '../actions/protected-data';
 import {clearAuth} from '../actions/auth'
 import {clearAuthToken} from '../local-storage';
 import DateSelector from './date-selector';
 
+
 export class Dashboard extends React.Component {
+  
   componentDidMount() {
     this.props.dispatch(fetchProtectedData());
   } 
@@ -16,10 +20,15 @@ export class Dashboard extends React.Component {
       localStorage.removeItem('authToken');
     }
     this.props.dispatch(clearAuth());
+    
   }
 
   render() {
-    return(
+    if (!this.props.loggedIn) {
+     return <Redirect to='/' />
+    }
+
+    return(  
       <div>
         <h2>Welcome!</h2>
         <DateSelector />
@@ -32,6 +41,7 @@ export class Dashboard extends React.Component {
 const mapStateToProps = state => {
   const {currentUser} = state.auth;
   return {
+      loggedIn: state.auth.authToken !== null,
       username: state.auth.currentUser.username,
       name: `${currentUser.firstName} ${currentUser.lastName}`,
       protectedData: state.protectedData.data

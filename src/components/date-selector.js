@@ -1,4 +1,7 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
+
+import {getMondays} from '../mondays';
 
 
 export default class DateSelector extends React.Component {
@@ -23,30 +26,14 @@ export default class DateSelector extends React.Component {
   
 
   render() {
-
-     // return array of all Mondays for 2018
-     let date = new Date(2018, 0);
-     const nextYear = date.getFullYear() + 1;
-     const endMonth = date.getMonth();
-     const mondays = [];
-    //get first Monday
-     mondays.push(new Date((date.setDate(date.getDate() + (8 - (date.getDay() || 7)) % 7))));
-    //get the rest of the Mondays and filter out 2019 dates
-     while (Number(date.getFullYear()) < nextYear) {
-       mondays.push(new Date(date.setDate(date.getDate() + 7)))
-     }
-    //filter out 2019 dates
-    const mondaysOf2018 = mondays.filter(date => date.getFullYear() === 2018);
-    console.log(mondaysOf2018);
     //get Mondays for selected month
     const selectedMonth = Number(this.state.month);
-    console.log(mondaysOf2018[0].getMonth(),selectedMonth);
-    const selectedMondays = mondaysOf2018.filter(date => date.getMonth() === selectedMonth) 
-    console.log(selectedMondays);
+    const mondays = getMondays();
+    const selectedMondays = mondays.filter(date => date.getMonth() === selectedMonth) 
     //create array of <li> elements for each Monday
     const list = selectedMondays.map((date, index) => {
      return <li key={index}>
-        {date.toDateString()}
+        <Link to='/box'>{date.toDateString()}</Link>
      </li>
     });
 
