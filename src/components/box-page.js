@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import requiresLogin from './requires-login';
 import {fetchBox, createBox, addVegetable} from '../actions/boxes';
 import {fetchVegetables} from '../actions/vegetables';
+import BoxContents from './box-contents';
 
 
 export class BoxPage extends React.Component {
@@ -33,24 +34,24 @@ export class BoxPage extends React.Component {
   onSubmit = (e) => {
     e.preventDefault();
     this.props.dispatch(addVegetable(this.select.value))
-    console.log('selected:',this.select.value,'added:', this.props.addedVegetables);
+    //console.log('selected:',this.select.value,'added:', this.props.addedVegetables);
   }
 
   render() {
     const vegetableOptions = [];
-    
+    // if no vegetables have been selected provide all vegetable option to user
     if (this.props.addedVegetables === []) {
       for (let i = 0; i < this.props.vegetables.length; i++) {
        return vegetableOptions.push(<option key={i} value={this.props.vegetables[i].name}>{this.props.vegetables[i].name}</option>)
       }
      } else {
+       //remove already selected vegetables from the list of options
         const remainingChoices = this.props.vegetables.filter((vegetable) => {
          return !(this.props.addedVegetables.includes(vegetable.name))
         })
         for (let i = 0; i < remainingChoices.length; i++) {
           vegetableOptions.push(<option key={i} value={remainingChoices[i].name}>{remainingChoices[i].name}</option>)
         }
-     //console.log(this.props.vegetables);
     }
 
   return (
@@ -66,6 +67,7 @@ export class BoxPage extends React.Component {
         <button type='submit' 
           className='vegetable-select-button' >Add to Box</button>
       </form>
+        <BoxContents />
     </div>
   )
 }
