@@ -3,7 +3,6 @@ export const getMondays = () => {
    const thisYear = new Date().getFullYear()
    let date = new Date(thisYear, 0);
    const nextYear = date.getFullYear() + 1;
-   const endMonth = date.getMonth();
    const mondays = [];    
   //get first Monday
    mondays.push(new Date((date.setDate(date.getDate() + (8 - (date.getDay() || 7)) % 7))));
@@ -14,6 +13,6 @@ export const getMondays = () => {
   //filter out any dates from next year
   const mondaysOf2018 = mondays.filter(date => date.getFullYear() === 2018);
   
-  return mondays;
+  return mondaysOf2018;
  
 }

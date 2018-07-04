@@ -1,0 +1,6 @@
+ -- manage the new box contents on the frontend and send one put
+ update ajax request on user submit
+
+
+ -- include a spinner or message to tell user when ajax calls 
+are being made

@@ -46,7 +46,7 @@ stopPeriodicRefresh() {
         <Route exact path='/' component={LandingPage} />
         <Route exact path='/register' component={RegistrationPage} />
         <Route exact path='/dashboard' component={Dashboard} />
-        <Route exact path='/box' component={BoxPage} />
+        <Route path='/box/:date' component={BoxPage} />
       </main>
     )
   }

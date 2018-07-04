@@ -1,10 +1,12 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import {connect} from 'react-redux';
 
 import {getMondays} from '../mondays';
+import requiresLogin from './requires-login';
 
 
-export default class DateSelector extends React.Component {
+export class DateSelector extends React.Component {
    constructor(props) {
      super(props);
      this.state = {
@@ -16,14 +18,13 @@ export default class DateSelector extends React.Component {
    }
   }
 
-  handleChange = (event) => {
-    console.log(this.state.month)
+  handleChange = () => {
     this.setState({
       month: this.value.value
     })
-    console.log(this.state.month)
   }
   
+ 
 
   render() {
     //get Mondays for selected month
@@ -32,10 +33,10 @@ export default class DateSelector extends React.Component {
     const selectedMondays = mondays.filter(date => date.getMonth() === selectedMonth) 
     //create array of <li> elements for each Monday
     const list = selectedMondays.map((date, index) => {
-     return <li key={index}>
-        <Link to='/box'>{date.toDateString()}</Link>
+     return <li key={index} onClick={this.handleClick}>
+        <Link to={`/box/${date.getFullYear()}${date.getMonth()}${date.getDate()}`}>{date.toDateString()}</Link>
      </li>
-    });
+        });
 
   return (
     <div>
@@ -61,3 +62,15 @@ export default class DateSelector extends React.Component {
   )
 }
    }
+
+   const mapStateToProps = state => {
+    const {currentUser} = state.auth;
+    return {
+        loggedIn: state.auth.authToken !== null,
+        username: state.auth.currentUser.username,
+        name: `${currentUser.firstName} ${currentUser.lastName}`,
+        protectedData: state.protectedData.data
+    };
+  };
+
+   export default requiresLogin()(connect(mapStateToProps)(DateSelector));
