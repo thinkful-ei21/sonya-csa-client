@@ -4,7 +4,7 @@ import {
 } from '../actions/vegetables'
 
 const initialState = {
-  data: '',
+  data: [],
   errir: null
 };
 

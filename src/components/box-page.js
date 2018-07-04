@@ -21,7 +21,7 @@ export class BoxPage extends React.Component {
     this.props.dispatch(fetchBox(date))
     .then(() => {
         if (!this.props.box) {
-          console.log(this.props.box)
+          //console.log(this.props.box)
           this.props.dispatch(createBox(date))        
         }  
       })
@@ -37,13 +37,22 @@ export class BoxPage extends React.Component {
   }
 
   render() {
-    const vegetables = [];
-    if (this.props.vegetables) {
+    const vegetableOptions = [];
+    
+    if (this.props.addedVegetables === []) {
       for (let i = 0; i < this.props.vegetables.length; i++) {
-        vegetables.push(<option key={i} value={this.props.vegetables[i].name}>{this.props.vegetables[i].name}</option>)
+       return vegetableOptions.push(<option key={i} value={this.props.vegetables[i].name}>{this.props.vegetables[i].name}</option>)
       }
+     } else {
+        const remainingChoices = this.props.vegetables.filter((vegetable) => {
+         return !(this.props.addedVegetables.includes(vegetable.name))
+        })
+        for (let i = 0; i < remainingChoices.length; i++) {
+          vegetableOptions.push(<option key={i} value={remainingChoices[i].name}>{remainingChoices[i].name}</option>)
+        }
+     //console.log(this.props.vegetables);
     }
-   
+
   return (
     <div className='box-builder'>
       <form className='vegetable-select-form' 
@@ -52,7 +61,7 @@ export class BoxPage extends React.Component {
         <select className='vegetable-selector' 
           name='vegetable-selector' 
           ref={this.selectRef}>
-          {vegetables}
+          {vegetableOptions}
         </select>
         <button type='submit' 
           className='vegetable-select-button' >Add to Box</button>
@@ -69,6 +78,7 @@ const mapStateToProps = state => {
       name: `${currentUser.firstName} ${currentUser.lastName}`,
       box: state.box.pickUpDate,
       addedVegetables: state.box.vegetables,
+      vegetablesAdd: state.box.vegetables !== [],
       vegetables: state.vegetable.data
   }
 };

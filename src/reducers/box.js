@@ -34,7 +34,7 @@ export default function reducer(state = initialState, action) {
             error: action.data.error
         });
   } else if (action.type === ADD_VEGETABLE) {
-      console.log(action.vegetable, state.vegetables)
+      //console.log(action.vegetable, state.vegetables)
       return Object.assign({}, state, {
           vegetables: [...state.vegetables, action.vegetable]
       });
