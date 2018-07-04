@@ -25,6 +25,12 @@ export const createBoxError = error => ({
     error
 });
 
+export const ADD_VEGETABLE = 'ADD_VEGETABLE';
+export const addVegetable = vegetable => ({
+    type: ADD_VEGETABLE,
+    vegetable
+})
+
 export const createBox = (pickUpDate) => (dispatch, getState) => {
     const authToken = getState().auth.authToken;
     return fetch(`${API_BASE_URL}/box/${pickUpDate}`, {

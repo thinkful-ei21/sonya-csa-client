@@ -30,10 +30,10 @@ export class DateSelector extends React.Component {
     //get Mondays for selected month
     const selectedMonth = Number(this.state.month);
     const mondays = getMondays();
-    const selectedMondays = mondays.filter(date => date.getMonth() === selectedMonth) 
+    const  selectedMondays = mondays.filter(date => date.getMonth() === selectedMonth) 
     //create array of <li> elements for each Monday
     const list = selectedMondays.map((date, index) => {
-     return <li key={index} onClick={this.handleClick}>
+     return <li key={index}>
         <Link to={`/box/${date.getFullYear()}${date.getMonth()}${date.getDate()}`}>{date.toDateString()}</Link>
      </li>
         });
