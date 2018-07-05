@@ -3,41 +3,67 @@ import {
   FETCH_BOX_ERROR, 
   CREATE_BOX_SUCCESS,
   CREATE_BOX_ERROR,
-  ADD_VEGETABLE
+  ADD_VEGETABLE,
+  CREATE_BOX_CONTENTS_SUCCESS,
+  CREATE_BOX_CONTENTS_ERROR
 } from '../actions/boxes';
 
 const initialState = {
   vegetables: [],
+  boxContents: null,
   pickUpDate: null,
+  data: null,
   error: null
 };
 
 export default function reducer(state = initialState, action) {
   if (action.type === FETCH_BOX_SUCCESS) {
-      return Object.assign({}, state, {
-          vegetables: action.data.vegetables,
-          pickUpDate: action.data.pickUpDate,
-          error: null
+      if (action.data.boxContents) {
+        const vegetables = action.data.boxContents.map(vegetable => {
+            return vegetable.name
+        })
+    
+        return Object.assign({}, state, {
+            vegetables: vegetables,
+            boxContents: action.data.boxContents,
+            pickUpDate: action.data.pickUpDate,
+            error: null
       });
+    } else {
+        return Object.assign({}, state, {
+            vegetables: [],
+            boxContents: null,
+            pickUpDate: action.data.pickUpDate,
+            error: null
+        })
+    }
   } else if (action.type === FETCH_BOX_ERROR) {
       return Object.assign({}, state, {
-          error: action.data.error
+          error: action.error
       });
   } else if (action.type === CREATE_BOX_SUCCESS) {
       return Object.assign({}, state, {
-          vegetables: action.data.vegetables,
+          vegetables: [],
+          boxContents: null,
           pickUpDate: action.data.pickUpDate,
           error: null
       });
   } else if (action.type === CREATE_BOX_ERROR) {
         return Object.assign({}, state, {
-            error: action.data.error
+            error: action.error
         });
   } else if (action.type === ADD_VEGETABLE) {
-      //console.log(action.vegetable, state.vegetables)
       return Object.assign({}, state, {
           vegetables: [...state.vegetables, action.vegetable]
       });
+  } else if (action.type === CREATE_BOX_CONTENTS_SUCCESS) {
+      return Object.assign({}, state, {
+          data: action.data
+      });
+  } else if (action.type === CREATE_BOX_CONTENTS_ERROR) {
+      return Object.assign({}, state, {
+          error: action.error
+      })
   }
   return state;
 }

@@ -29,7 +29,19 @@ export const ADD_VEGETABLE = 'ADD_VEGETABLE';
 export const addVegetable = vegetable => ({
     type: ADD_VEGETABLE,
     vegetable
-})
+});
+
+export const CREATE_BOX_CONTENTS_SUCCESS = 'CREATE_BOX_CONTENTS_SUCCESS';
+export const createBoxContentsSuccess = data => ({
+    type: CREATE_BOX_CONTENTS_SUCCESS,
+    data
+});
+
+export const CREATE_BOX_CONTENTS_ERROR = 'CREATE_BOX_CONTENTS_ERROR';
+export const createBoxContentsError = error => ({
+    type: CREATE_BOX_CONTENTS_ERROR,
+    error
+});
 
 export const createBox = (pickUpDate) => (dispatch, getState) => {
     const authToken = getState().auth.authToken;
@@ -38,10 +50,7 @@ export const createBox = (pickUpDate) => (dispatch, getState) => {
         headers: {
             Authorization: `Bearer ${authToken}`,
             'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            vegetables: ['carrot', 'beet', 'beans']
-        })
+        }
     })
     .then(res => normalizeResponseErrors(res))
     .then(res => res.json())
@@ -62,9 +71,6 @@ export const fetchBox = (pickUpDate) => (dispatch, getState) => {
       headers: {
           // Provide our auth token as credentials
           Authorization: `Bearer ${authToken}`
-      },
-      body: {
-          vegetables: []
       }
   })
       .then(res => normalizeResponseErrors(res))
@@ -78,3 +84,22 @@ export const fetchBox = (pickUpDate) => (dispatch, getState) => {
       });
 };
 
+export const createBoxContents = (boxContents, pickUpDate) => (dispatch, getState) => {
+    const authToken = getState().auth.authToken;
+
+    return fetch(`${API_BASE_URL}/box/${pickUpDate}`, {
+        method: 'POST',
+        headers: {
+            Authorization: `Bearer ${authToken}`
+        },
+        body: boxContents
+    })
+    .then(res => normalizeResponseErrors(res))
+    .then(res => res.json())
+    .then((data => {
+        dispatch(createBoxContentsSuccess(data))
+    })
+    .catch(err => {
+        dispatch(createBoxContentsError(err))
+    }));
+}

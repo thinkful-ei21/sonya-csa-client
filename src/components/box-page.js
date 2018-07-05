@@ -31,6 +31,11 @@ export class BoxPage extends React.Component {
     });
   }
 
+  onSave = (e) => {
+    e.preventDefault();
+    console.log(this.props.vegetables);
+  }
+
   onSubmit = (e) => {
     e.preventDefault();
     this.props.dispatch(addVegetable(this.select.value))
@@ -66,8 +71,9 @@ export class BoxPage extends React.Component {
         </select>
         <button type='submit' 
           className='vegetable-select-button' >Add to Box</button>
-      </form>
         <BoxContents />
+      </form>
+      <button type='submit' onClick={this.onSave}>Save</button>
     </div>
   )
 }

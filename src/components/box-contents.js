@@ -9,7 +9,6 @@ export class BoxContents extends React.Component {
    const vegetableList = [];
    console.log(vegetableList, this.props.addedVegetables);
    for (let i = 0; i < this.props.addedVegetables.length; i++) {
-     console.log('is this getting hit?')
      vegetableList.push(<li key={i} className='added-vegetable'>{this.props.addedVegetables[i]}</li>)
    }
   return (
