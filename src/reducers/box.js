@@ -6,7 +6,6 @@ import {
   ADD_VEGETABLE,
   UPDATE_BOX_SUCCESS,
   UPDATE_BOX_ERROR,
-  RESET_VEGETABLE_ADD_LIST,
   SET_SELECT_DISPLAY_BOOLEAN
 } from '../actions/boxes';
 
@@ -61,13 +60,9 @@ export default function reducer(state = initialState, action) {
       return Object.assign({}, state, {
         unsavedBoxContents: [...state.unsavedBoxContents, action.vegetable]
       });
-//   } else if (action.type === RESET_VEGETABLE_ADD_LIST) {
-//       return Object.assign({}, state, {
-//         unsavedBoxContents: []
-//       });
    
   } else if (action.type === SET_SELECT_DISPLAY_BOOLEAN) {
-      console.log('unsavedBoxContents: ', state.unsavedBoxContents);
+      //console.log('unsavedBoxContents: ', state.unsavedBoxContents);
       if ((state.savedBoxContents && state.savedBoxContents.length === 8) || (state.unsavedBoxContents.length === 8)) {
         return Object.assign({}, state, {
             displaySelectForm: false

@@ -11,10 +11,6 @@ export class BoxPage extends React.Component {
   constructor(props) {
     super(props);
 
-    // this.state = {
-    //   styleSelectForm: false
-    // }
-
     this.select = null
     this.selectRef = select => {
        this.select = select
@@ -33,10 +29,6 @@ export class BoxPage extends React.Component {
       })
       .then(() => {
         this.props.dispatch(setSelectDisplayBoolean())
-        // if (this.props.savedBoxContents && this.props.savedBoxContents.length === 8) {
-        //   this.setState = ({
-        //     styleSelectForm: true
-        //   })
         })
     .catch(err => {
       console.log(err);
@@ -60,12 +52,7 @@ export class BoxPage extends React.Component {
     e.preventDefault();
     this.props.dispatch(addVegetable(this.select.value));
     this.props.dispatch(setSelectDisplayBoolean());
-    // if (this.props.unsavedBoxContents.length === 7) {
-    //   console.log('is this getting hit?')
-    //   this.setState({
-    //     styleSelectForm: true,
-    //   })
-    // }
+    
     console.log('selected:',this.select.value,'added:', this.props.unsavedBoxContents);
   }
 
@@ -85,13 +72,6 @@ export class BoxPage extends React.Component {
           vegetableOptions.push(<option key={i} value={remainingChoices[i].name}>{remainingChoices[i].name}</option>)
         }
       }
-
-    // if (this.props.unsavedBoxContents.length === 8 || (this.props.savedBoxContents && this.props.savedBoxContents.length === 8)) {
-    //     console.log('is this getting hit?')
-    //     this.setState({
-    //       styleSelectForm: true,
-    //     })
-    //   }
 
   return (
     <div className='box-builder'>

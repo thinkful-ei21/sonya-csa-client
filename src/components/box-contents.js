@@ -4,6 +4,20 @@ import {connect} from 'react-redux';
 import requiresLogin from './requires-login';
 
 export class BoxContents extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.listItem = null;
+    this.listItemRef = listItem => {
+      this.listItem = listItem
+    }
+  }
+
+
+  deleteItem = () => {
+    console.log(this.listItem);
+    //this.dispatch(deleteVegetableChoice())
+  }
 
   render() {
    const vegetableList = [];
@@ -12,12 +26,20 @@ export class BoxContents extends React.Component {
    if (this.props.savedBoxContents) {
     for (let i = 0; i < this.props.savedBoxContents.length; i++) {
       console.log('rendering savedBoxContents: ', this.props.savedBoxContents);
-      vegetableList.push(<li key={i} className='box-content'>{this.props.savedBoxContents[i]}</li>);
+      vegetableList.push(
+        <div key={`div-${i}`} className='saved-box-item'>
+          <li key={`li-${i}`} className='box-content' ref={this.listItemRef}>{this.props.savedBoxContents[i]}</li>
+          <button key={`button-${i}`} onClick={this.deleteItem}>x</button>
+        </div>)
    }
    } else {
      for (let i = 0; i < this.props.unsavedBoxContents.length; i++) {
        console.log('rendering unsavedBoxContents: ', this.props.unsavedBoxContents);
-       vegetableList.push(<li key={i} className='added-vegetable'>{this.props.unsavedBoxContents[i]}</li>);
+       vegetableList.push(
+         <div key={`div-${i}`} className='unsaved-box-item'>
+           <li key={`li-${i}`} ref={this.listItemRef} className='added-vegetable'>{this.props.unsavedBoxContents[i]}</li>);
+           <button key={`button-${i}`} onClick={this.deleteItem}>x</button>
+         </div>)
      }
    }
    

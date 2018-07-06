@@ -5,7 +5,6 @@ import {Redirect} from 'react-router-dom';
 import requiresLogin from './requires-login';
 import {clearAuth} from '../actions/auth'
 import DateSelector from './date-selector';
-import {resetVegetableAddList} from '../actions/boxes';
 
 
 export class Dashboard extends React.Component {
