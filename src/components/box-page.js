@@ -70,11 +70,18 @@ export class BoxPage extends React.Component {
         for (let i = 0; i < remainingChoices.length; i++) {
           vegetableOptions.push(<option key={i} value={remainingChoices[i].name}>{remainingChoices[i].name}</option>)
         }
-    }
+      }
+
+    if ((this.props.unsavedBoxContents && this.props.unsavedBoxContents === 8) || 
+      (this.props.savedBoxContents && this.props.savedBoxContents === 8)) {
+        this.setState({
+          styleSelectForm: true,
+        })
+      }
 
   return (
     <div className='box-builder'>
-      <form className='vegetable-select-form' 
+      <form className={this.state.styleSelcetForm ? 'hide-vegetable-selector-form' : ''} 
         onSubmit={this.onSubmit}>
         <label htmlFor='vegetable-selector'>Choose 8 vegetables from the list</label>
         <select className='vegetable-selector' 
@@ -84,8 +91,8 @@ export class BoxPage extends React.Component {
         </select>
         <button type='submit' 
           className='vegetable-select-button' >Add to Box</button>
-        <BoxContents />
       </form>
+      <BoxContents />
       <button type='submit' onClick={this.onSave}>Save</button>
     </div>
   )

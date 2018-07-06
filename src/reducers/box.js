@@ -21,12 +21,20 @@ export default function reducer(state = initialState, action) {
   if (action.type === FETCH_BOX_SUCCESS) {
         if (action.data.boxContents.length === 0) {  
             return Object.assign({}, state, {
+<<<<<<< HEAD
+=======
+                unsavedBoxContents: [],
+>>>>>>> limit-t-8-choices
                 savedBoxContents: null,
                 pickUpDate: action.data.pickUpDate,
                 error: null
             });
         } else {
         return Object.assign({}, state, {
+<<<<<<< HEAD
+=======
+            unsavedBoxContents: [],
+>>>>>>> limit-t-8-choices
             savedBoxContents: action.data.boxContents,
             pickUpDate: action.data.pickUpDate,
             error: null
@@ -34,24 +42,40 @@ export default function reducer(state = initialState, action) {
     }
   } else if (action.type === FETCH_BOX_ERROR) {
       return Object.assign({}, state, {
+<<<<<<< HEAD
+=======
+          unsavedBoxContents: [],
+>>>>>>> limit-t-8-choices
           savedBoxContents: null,
           pickUpDate: null,
           error: action.error
       });
   } else if (action.type === CREATE_BOX_SUCCESS) {
       return Object.assign({}, state, {
+<<<<<<< HEAD
           savedBoxContents: null,
           pickUpDate: action.data.pickUpDate,
           error: null
       });
   } else if (action.type === CREATE_BOX_ERROR) {
       return Object.assign({}, state, {
+=======
+        unsavedBoxContents: [],
+        savedBoxContents: null,
+        pickUpDate: action.data.pickUpDate,
+        error: null
+      });
+  } else if (action.type === CREATE_BOX_ERROR) {
+      return Object.assign({}, state, {
+        unsavedBoxContents: [],
+>>>>>>> limit-t-8-choices
         savedBoxContents: null,
         pickUpDate: null,
         error: action.error
       });
   } else if (action.type === ADD_VEGETABLE) {
       return Object.assign({}, state, {
+<<<<<<< HEAD
           unsavedBoxContents: [...state.unsavedBoxContents, action.vegetable]
       });
   } else if (action.type === RESET_VEGETABLE_ADD_LIST) {
@@ -69,6 +93,27 @@ export default function reducer(state = initialState, action) {
           savedBoxContents: null,
           pickUpDate: null,
           error: action.error
+=======
+        unsavedBoxContents: [...state.unsavedBoxContents, action.vegetable]
+      });
+  } else if (action.type === RESET_VEGETABLE_ADD_LIST) {
+      return Object.assign({}, state, {
+        unsavedBoxContents: []
+      });
+  } else if (action.type === UPDATE_BOX_SUCCESS) {
+      return Object.assign({}, state, {
+        unsavedBoxContents: [],
+        savedBoxContents: action.data.boxContents,
+        pickUpDate: action.data.pickUpDate,
+        error: null
+      });
+  } else if (action.type === UPDATE_BOX_ERROR) {
+      return Object.assign({}, state, {
+        unsavedBoxContents: [],
+        savedBoxContents: null,
+        pickUpDate: null,
+        error: action.error
+>>>>>>> limit-t-8-choices
       })
   }
   return state;

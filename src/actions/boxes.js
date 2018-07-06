@@ -70,7 +70,7 @@ export const createBox = (pickUpDate) => (dispatch, getState) => {
 
 export const fetchBox = (pickUpDate) => (dispatch, getState) => {
   const authToken = getState().auth.authToken;
-
+  console.log('fetching the requested box');
      return fetch(`${API_BASE_URL}/box/${pickUpDate}`, {
         method: 'GET',
         headers: {
@@ -81,7 +81,7 @@ export const fetchBox = (pickUpDate) => (dispatch, getState) => {
       .then(res => normalizeResponseErrors(res))
       .then(res => res.json())
       .then((data) => {
-        //   console.log('this is data response from get box request:', data)
+          console.log('the requested box has these contents: ', data.boxContents);
           dispatch(fetchBoxSuccess(data))
       })
       .catch(err => {
