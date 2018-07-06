@@ -26,9 +26,6 @@ export class BoxPage extends React.Component {
           this.props.dispatch(createBox(date))        
         }  
       })
-    .then(() => {
-      this.props.dispatch(fetchBox(date))
-    })
     .catch(err => {
       console.log(err);
     });

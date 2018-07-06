@@ -71,7 +71,7 @@ export const createBox = (pickUpDate) => (dispatch, getState) => {
 export const fetchBox = (pickUpDate) => (dispatch, getState) => {
   const authToken = getState().auth.authToken;
 
-      fetch(`${API_BASE_URL}/box/${pickUpDate}`, {
+     return fetch(`${API_BASE_URL}/box/${pickUpDate}`, {
         method: 'GET',
         headers: {
             // Provide our auth token as credentials
