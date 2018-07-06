@@ -10,10 +10,6 @@ import {resetVegetableAddList} from '../actions/boxes';
 
 export class Dashboard extends React.Component {
 
-  // componentDidMount() {
-  //   this.props.dispatch(resetVegetableAddList);
-  // }
-
   logout() {
     if (localStorage.getItem('authToken')) {
       localStorage.removeItem('authToken');

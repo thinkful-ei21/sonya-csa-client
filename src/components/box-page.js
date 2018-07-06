@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux'
 
 import requiresLogin from './requires-login';
-import {fetchBox, createBox, addVegetable, updateBox} from '../actions/boxes';
+import {fetchBox, createBox, addVegetable, updateBox, setSelectDisplayBoolean} from '../actions/boxes';
 import {fetchVegetables} from '../actions/vegetables';
 import BoxContents from './box-contents';
 
@@ -11,9 +11,9 @@ export class BoxPage extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      styleSelectForm: false
-    }
+    // this.state = {
+    //   styleSelectForm: false
+    // }
 
     this.select = null
     this.selectRef = select => {
@@ -29,8 +29,15 @@ export class BoxPage extends React.Component {
         if (!this.props.box) {
           //console.log(this.props.box)
           this.props.dispatch(createBox(date))        
-        }  
+        } 
       })
+      .then(() => {
+        this.props.dispatch(setSelectDisplayBoolean())
+        // if (this.props.savedBoxContents && this.props.savedBoxContents.length === 8) {
+        //   this.setState = ({
+        //     styleSelectForm: true
+        //   })
+        })
     .catch(err => {
       console.log(err);
     });
@@ -51,7 +58,14 @@ export class BoxPage extends React.Component {
 
   onSubmit = (e) => {
     e.preventDefault();
-    this.props.dispatch(addVegetable(this.select.value))
+    this.props.dispatch(addVegetable(this.select.value));
+    this.props.dispatch(setSelectDisplayBoolean());
+    // if (this.props.unsavedBoxContents.length === 7) {
+    //   console.log('is this getting hit?')
+    //   this.setState({
+    //     styleSelectForm: true,
+    //   })
+    // }
     console.log('selected:',this.select.value,'added:', this.props.unsavedBoxContents);
   }
 
@@ -72,16 +86,16 @@ export class BoxPage extends React.Component {
         }
       }
 
-    if ((this.props.unsavedBoxContents && this.props.unsavedBoxContents === 8) || 
-      (this.props.savedBoxContents && this.props.savedBoxContents === 8)) {
-        this.setState({
-          styleSelectForm: true,
-        })
-      }
+    // if (this.props.unsavedBoxContents.length === 8 || (this.props.savedBoxContents && this.props.savedBoxContents.length === 8)) {
+    //     console.log('is this getting hit?')
+    //     this.setState({
+    //       styleSelectForm: true,
+    //     })
+    //   }
 
   return (
     <div className='box-builder'>
-      <form className={this.state.styleSelcetForm ? 'hide-vegetable-selector-form' : ''} 
+      <form className={this.props.selectDisplay ? '' : 'hide-vegetable-selector-form'} 
         onSubmit={this.onSubmit}>
         <label htmlFor='vegetable-selector'>Choose 8 vegetables from the list</label>
         <select className='vegetable-selector' 
@@ -107,7 +121,8 @@ const mapStateToProps = state => {
       box: state.box.pickUpDate,
       savedBoxContents: state.box.savedBoxContents,
       unsavedBoxContents: state.box.unsavedBoxContents,
-      vegetables: state.vegetable.data
+      vegetables: state.vegetable.data,
+      selectDisplay: state.box.displaySelectForm
   }
 };
 

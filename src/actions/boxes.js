@@ -31,10 +31,15 @@ export const addVegetable = vegetable => ({
     vegetable
 });
 
-export const RESET_VEGETABLE_ADD_LIST = 'RESET_VEGETABLE_ADD_LIST';
-export const resetVegetableAddList = () => ({
-    type: RESET_VEGETABLE_ADD_LIST,
-});
+// export const RESET_VEGETABLE_ADD_LIST = 'RESET_VEGETABLE_ADD_LIST';
+// export const resetVegetableAddList = () => ({
+//     type: RESET_VEGETABLE_ADD_LIST,
+// });
+
+export const SET_SELECT_DISPLAY_BOOLEAN = 'SET_SELECT_DISPLAY_BOOLEAN';
+export const setSelectDisplayBoolean = () => ({
+  type: SET_SELECT_DISPLAY_BOOLEAN    
+})
 
 export const UPDATE_BOX_SUCCESS = 'UPDATE_BOX_SUCCESS';
 export const updateBoxSuccess = data => ({
