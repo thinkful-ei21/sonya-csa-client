@@ -8,3 +8,6 @@ input {
   display: block;
 }
 
+.hide-vegetable-selector-form {
+  display: none;
+}
