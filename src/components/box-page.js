@@ -10,6 +10,11 @@ import BoxContents from './box-contents';
 export class BoxPage extends React.Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      styleSelectForm: false
+    }
+
     this.select = null
     this.selectRef = select => {
        this.select = select
@@ -34,7 +39,7 @@ export class BoxPage extends React.Component {
   onSave = (e) => {
     const date = this.props.match.params.date;
     //map through added vegetables and generate array of box content objects
-    const addedVegetables = this.props.addedVegetables.map(vegetable => {
+    const addedVegetables = this.props.unsavedBoxContents.map(vegetable => {
       return vegetable      
     });
     const boxContents = {
@@ -47,20 +52,20 @@ export class BoxPage extends React.Component {
   onSubmit = (e) => {
     e.preventDefault();
     this.props.dispatch(addVegetable(this.select.value))
-    console.log('selected:',this.select.value,'added:', this.props.addedVegetables);
+    console.log('selected:',this.select.value,'added:', this.props.unsavedBoxContents);
   }
 
   render() {
     const vegetableOptions = [];
-    // if no vegetables have been selected provide all vegetable option to user
-    if (this.props.addedVegetables === []) {
+    // if no vegetables have been selected provide all vegetable options to user
+    if (this.props.unsavedBoxContents === []) {
       for (let i = 0; i < this.props.vegetables.length; i++) {
        return vegetableOptions.push(<option key={i} value={this.props.vegetables[i].name}>{this.props.vegetables[i].name}</option>)
       }
      } else {
        //remove already selected vegetables from the list of options
         const remainingChoices = this.props.vegetables.filter((vegetable) => {
-         return !(this.props.addedVegetables.includes(vegetable.name))
+         return !(this.props.unsavedBoxContents.includes(vegetable.name))
         })
         for (let i = 0; i < remainingChoices.length; i++) {
           vegetableOptions.push(<option key={i} value={remainingChoices[i].name}>{remainingChoices[i].name}</option>)
@@ -93,8 +98,8 @@ const mapStateToProps = state => {
       username: state.auth.currentUser.username,
       name: `${currentUser.firstName} ${currentUser.lastName}`,
       box: state.box.pickUpDate,
-      boxContents: state.box.boxContents,
-      addedVegetables: state.box.vegetables,
+      savedBoxContents: state.box.savedBoxContents,
+      unsavedBoxContents: state.box.unsavedBoxContents,
       vegetables: state.vegetable.data
   }
 };

@@ -7,15 +7,15 @@ export class BoxContents extends React.Component {
 
   render() {
    const vegetableList = [];
-   console.log('box.box-content state:', this.props.boxContents);
-   console.log(vegetableList, this.props.addedVegetables);
-   if (this.props.boxContents) {
-    for (let i = 0; i < this.props.boxContents.length; i++) {
-      vegetableList.push(<li key={i} className='box-content'>{this.props.boxContents[i]}</li>)
+   console.log('box.box-content state:', this.props.savedBoxContents);
+   console.log(vegetableList, this.props.unsavedBoxContents);
+   if (this.props.savedBoxContents) {
+    for (let i = 0; i < this.props.savedBoxContents.length; i++) {
+      vegetableList.push(<li key={i} className='box-content'>{this.props.savedBoxContents[i]}</li>)
    }
    } else {
-     for (let i = 0; i < this.props.addedVegetables.length; i++) {
-       vegetableList.push(<li key={i} className='added-vegetable'>{this.props.addedVegetables[i]}</li>)
+     for (let i = 0; i < this.props.unsavedBoxContents.length; i++) {
+       vegetableList.push(<li key={i} className='added-vegetable'>{this.props.unsavedBoxContents[i]}</li>)
      }
    }
    
@@ -33,9 +33,9 @@ const mapStateToProps = state => {
       loggedIn: state.auth.authToken !== null,
       username: state.auth.currentUser.username,
       name: `${currentUser.firstName} ${currentUser.lastName}`,
-      boxContents: state.box.boxContents,
+      savedBoxContents: state.box.savedBoxContents,
       box: state.box.pickUpDate,
-      addedVegetables: state.box.vegetables
+      unsavedBoxContents: state.box.unsavedBoxContents
   }
 }
 
