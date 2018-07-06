@@ -68,8 +68,7 @@ export class DateSelector extends React.Component {
     return {
         loggedIn: state.auth.authToken !== null,
         username: state.auth.currentUser.username,
-        name: `${currentUser.firstName} ${currentUser.lastName}`,
-        protectedData: state.protectedData.data
+        name: `${currentUser.firstName} ${currentUser.lastName}`
     };
   };
 

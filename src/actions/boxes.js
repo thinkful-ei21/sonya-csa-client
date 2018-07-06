@@ -31,15 +31,20 @@ export const addVegetable = vegetable => ({
     vegetable
 });
 
-export const CREATE_BOX_CONTENTS_SUCCESS = 'CREATE_BOX_CONTENTS_SUCCESS';
-export const createBoxContentsSuccess = data => ({
-    type: CREATE_BOX_CONTENTS_SUCCESS,
+export const RESET_VEGETABLE_ADD_LIST = 'RESET_VEGETABLE_ADD_LIST';
+export const resetVegetableAddList = () => ({
+    type: RESET_VEGETABLE_ADD_LIST,
+});
+
+export const UPDATE_BOX_SUCCESS = 'UPDATE_BOX_SUCCESS';
+export const updateBoxSuccess = data => ({
+    type: UPDATE_BOX_SUCCESS,
     data
 });
 
-export const CREATE_BOX_CONTENTS_ERROR = 'CREATE_BOX_CONTENTS_ERROR';
-export const createBoxContentsError = error => ({
-    type: CREATE_BOX_CONTENTS_ERROR,
+export const UPDATE_BOX_ERROR = 'UPDATE_BOX_ERROR';
+export const updateBoxError = error => ({
+    type: UPDATE_BOX_ERROR,
     error
 });
 
@@ -66,17 +71,17 @@ export const createBox = (pickUpDate) => (dispatch, getState) => {
 export const fetchBox = (pickUpDate) => (dispatch, getState) => {
   const authToken = getState().auth.authToken;
 
-  return fetch(`${API_BASE_URL}/box/${pickUpDate}`, {
-      method: 'GET',
-      headers: {
-          // Provide our auth token as credentials
-          Authorization: `Bearer ${authToken}`
-      }
-  })
+      fetch(`${API_BASE_URL}/box/${pickUpDate}`, {
+        method: 'GET',
+        headers: {
+            // Provide our auth token as credentials
+            Authorization: `Bearer ${authToken}`
+        }
+      })
       .then(res => normalizeResponseErrors(res))
       .then(res => res.json())
       .then((data) => {
-
+        //   console.log('this is data response from get box request:', data)
           dispatch(fetchBoxSuccess(data))
       })
       .catch(err => {
@@ -84,22 +89,23 @@ export const fetchBox = (pickUpDate) => (dispatch, getState) => {
       });
 };
 
-export const createBoxContents = (boxContents, pickUpDate) => (dispatch, getState) => {
+export const updateBox = (boxContents, pickUpDate) => (dispatch, getState) => {
     const authToken = getState().auth.authToken;
-
+    console.log(boxContents);
     return fetch(`${API_BASE_URL}/box/${pickUpDate}`, {
-        method: 'POST',
+        method: 'PUT',
         headers: {
-            Authorization: `Bearer ${authToken}`
+            Authorization: `Bearer ${authToken}`,
+            'Content-Type': 'application/json'
         },
-        body: boxContents
+        body: JSON.stringify(boxContents)
     })
     .then(res => normalizeResponseErrors(res))
     .then(res => res.json())
-    .then((data => {
-        dispatch(createBoxContentsSuccess(data))
+    .then(data => {
+        dispatch(updateBoxSuccess(data))
     })
     .catch(err => {
-        dispatch(createBoxContentsError(err))
-    }));
+        dispatch(updateBoxError(err))
+    });
 }

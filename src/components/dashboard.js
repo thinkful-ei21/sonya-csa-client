@@ -3,16 +3,16 @@ import {connect} from 'react-redux';
 import {Redirect} from 'react-router-dom';
 
 import requiresLogin from './requires-login';
-import {fetchProtectedData} from '../actions/protected-data';
 import {clearAuth} from '../actions/auth'
 import DateSelector from './date-selector';
+import {resetVegetableAddList} from '../actions/boxes';
 
 
 export class Dashboard extends React.Component {
-  
-  componentDidMount() {
-    this.props.dispatch(fetchProtectedData());
-  } 
+
+  // componentDidMount() {
+  //   this.props.dispatch(resetVegetableAddList);
+  // }
 
   logout() {
     if (localStorage.getItem('authToken')) {
@@ -41,8 +41,7 @@ const mapStateToProps = state => {
   return {
       loggedIn: state.auth.authToken !== null,
       username: state.auth.currentUser.username,
-      name: `${currentUser.firstName} ${currentUser.lastName}`,
-      protectedData: state.protectedData.data
+      name: `${currentUser.firstName} ${currentUser.lastName}`
   };
 };
 

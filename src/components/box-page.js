@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux'
 
 import requiresLogin from './requires-login';
-import {fetchBox, createBox, addVegetable} from '../actions/boxes';
+import {fetchBox, createBox, addVegetable, updateBox} from '../actions/boxes';
 import {fetchVegetables} from '../actions/vegetables';
 import BoxContents from './box-contents';
 
@@ -26,20 +26,31 @@ export class BoxPage extends React.Component {
           this.props.dispatch(createBox(date))        
         }  
       })
+    .then(() => {
+      this.props.dispatch(fetchBox(date))
+    })
     .catch(err => {
       console.log(err);
     });
   }
 
   onSave = (e) => {
+    const date = this.props.match.params.date;
+    //map through added vegetables and generate array of box content objects
+    const addedVegetables = this.props.addedVegetables.map(vegetable => {
+      return vegetable      
+    });
+    const boxContents = {
+      boxContents: addedVegetables
+    }
     e.preventDefault();
-    console.log(this.props.vegetables);
+    this.props.dispatch(updateBox(boxContents, date))
   }
 
   onSubmit = (e) => {
     e.preventDefault();
     this.props.dispatch(addVegetable(this.select.value))
-    //console.log('selected:',this.select.value,'added:', this.props.addedVegetables);
+    console.log('selected:',this.select.value,'added:', this.props.addedVegetables);
   }
 
   render() {
@@ -85,8 +96,8 @@ const mapStateToProps = state => {
       username: state.auth.currentUser.username,
       name: `${currentUser.firstName} ${currentUser.lastName}`,
       box: state.box.pickUpDate,
+      boxContents: state.box.boxContents,
       addedVegetables: state.box.vegetables,
-      vegetablesAdd: state.box.vegetables !== [],
       vegetables: state.vegetable.data
   }
 };
