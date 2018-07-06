@@ -51,9 +51,9 @@ export default function reducer(state = initialState, action) {
         error: action.error
       });
   } else if (action.type === ADD_VEGETABLE) {
-      return Object.assign({}, state, {
-          vegetables: [...state.vegetables, action.vegetable]
-      });
+        return Object.assign({}, state, {
+            vegetables: [...state.vegetables, action.vegetable],
+        });  
   } else if (action.type === RESET_VEGETABLE_ADD_LIST) {
       return Object.assign({}, state, {
           vegetables: []

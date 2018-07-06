@@ -8,3 +8,7 @@ input {
   display: block;
 }
 
+.hide-vegetable-select {
+  display: none;
+}
+
