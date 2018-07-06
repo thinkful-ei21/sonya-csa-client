@@ -35,7 +35,7 @@ export class BoxPage extends React.Component {
       })
     .then(() => {
        //if 8 vegetables have already been saved, remove select options
-      if (this.props.boxContents !== null && this.props.boxContents.length === 8) {
+      if (this.props.savedBoxContents !== null && this.props.savedBoxContents.length === 8) {
         this.setState({
           styleCondition: true
         })
@@ -52,12 +52,12 @@ export class BoxPage extends React.Component {
   onSave = (e) => {
     const boxContents = {};
     const date = this.props.match.params.date;
-    if (this.props.boxContents) {
-      console.log('this.props.boxContents = ',this.props.boxContents)
-      boxContents.boxContents = this.props.boxContents
+    if (this.props.savedBoxContents) {
+      console.log('this.props.savedBoxContents = ',this.props.savedBoxContents)
+      boxContents.boxContents = this.props.savedBoxContents
       } else {
-        console.log('this.props.addedVegetables = ',this.props.addedVegetables)
-       boxContents.boxContents = this.props.addedVegetables
+        console.log('this.props.unsavedBoxContents = ',this.props.unsavedBoxContents)
+       boxContents.boxContents = this.props.unsavedBoxContents
       } 
     e.preventDefault();
     this.props.dispatch(updateBox(boxContents, date))
@@ -66,31 +66,33 @@ export class BoxPage extends React.Component {
   onSubmit = (e) => {
     e.preventDefault();
     this.props.dispatch(addVegetable(this.select.value));
-    if (this.props.addedVegetables.length === 7) {
+    if (this.props.unsavedBoxContents.length === 7) {
       console.log('onSubmit selector toggle', this.state.styleCondition)
       this.setState({
         styleCondition: true
       })
     }
-    console.log('selected:',this.select.value,'added:', this.props.addedVegetables);
+    console.log('selected:',this.select.value,'added:', this.props.unsavedBoxContents);
   }
 
   render() {
     const vegetableOptions = [];
     // if no vegetables have been selected provide all vegetable option to user
-    if (this.props.addedVegetables === []) {
+    if (this.props.unsavedBoxContents === []) {
       for (let i = 0; i < this.props.vegetables.length; i++) {
        return vegetableOptions.push(<option key={i} value={this.props.vegetables[i].name}>{this.props.vegetables[i].name}</option>)
       }
      } else {
        //remove already selected vegetables from the list of options
         const remainingChoices = this.props.vegetables.filter((vegetable) => {
-         return !(this.props.addedVegetables.includes(vegetable.name))
+         return !(this.props.unsavedBoxContents.includes(vegetable.name))
         })
         for (let i = 0; i < remainingChoices.length; i++) {
           vegetableOptions.push(<option key={i} value={remainingChoices[i].name}>{remainingChoices[i].name}</option>)
         }
-    }
+    } 
+
+
     //const vegetableSelectDisplay = this.props.selectClassName;
   return (
     <div className='box-builder'>
@@ -107,8 +109,8 @@ export class BoxPage extends React.Component {
             Add to Box
           </button>
         </div>
-        <BoxContents />
       </form>
+        <BoxContents />
       <button type='submit' onClick={this.onSave}>Save</button>
     </div>
   )
@@ -121,8 +123,8 @@ const mapStateToProps = state => {
       username: state.auth.currentUser.username,
       name: `${currentUser.firstName} ${currentUser.lastName}`,
       box: state.box.pickUpDate,
-      boxContents: state.box.boxContents,
-      addedVegetables: state.box.vegetables,
+      savedBoxContents: state.box.savedBoxContents,
+      unsavedBoxContents: state.box.unsavedBoxContents,
       vegetables: state.vegetable.data,
       //selectClassName: state.selectDisplayClassName
   }

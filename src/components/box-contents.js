@@ -5,24 +5,39 @@ import requiresLogin from './requires-login';
 
 export class BoxContents extends React.Component {
 
+  // onSave = (e) => {
+  //   const boxContents = {};
+  //   const date = this.props.match.params.date;
+  //   if (this.props.boxContents) {
+  //     console.log('this.props.boxContents = ',this.props.boxContents)
+  //     boxContents.boxContents = this.props.boxContents
+  //     } else {
+  //       console.log('this.props.addedVegetables = ',this.props.addedVegetables)
+  //      boxContents.boxContents = this.props.addedVegetables
+  //     } 
+  //   e.preventDefault();
+  //   this.props.dispatch(updateBox(boxContents, date))
+  // }
+
+
   render() {
    const vegetableList = [];
-   console.log('box.box-content state:', this.props.boxContents);
-   console.log(vegetableList, this.props.addedVegetables);
-   if (this.props.boxContents) {
-    for (let i = 0; i < this.props.boxContents.length; i++) {
-      vegetableList.push(<li key={i} className='box-content'>{this.props.boxContents[i]}</li>)
+   console.log('box.box-content state:', this.props.savedBoxContents);
+   console.log(vegetableList, this.props.unsavedBoxContents);
+   if (this.props.savedBoxContentss) {
+    for (let i = 0; i < this.props.savedBoxContents.length; i++) {
+      vegetableList.push(<li key={i} className='box-content'>{this.props.savedBoxContents[i]}</li>)
    }
    } else {
-     for (let i = 0; i < this.props.addedVegetables.length; i++) {
-       vegetableList.push(<li key={i} className='added-vegetable'>{this.props.addedVegetables[i]}</li>)
+     for (let i = 0; i < this.props.unsavedBoxContents.length; i++) {
+       vegetableList.push(<li key={i} className='added-vegetable'>{this.props.unsavedBoxContents[i]}</li>)
      }
    }
    
-  return (
-    <ul>
-    {vegetableList}
-    </ul>
+  return ( 
+      <ul>
+        {vegetableList}
+      </ul>
   )
   }
 }
@@ -33,9 +48,9 @@ const mapStateToProps = state => {
       loggedIn: state.auth.authToken !== null,
       username: state.auth.currentUser.username,
       name: `${currentUser.firstName} ${currentUser.lastName}`,
-      boxContents: state.box.boxContents,
+      savedBoxContents: state.box.savedBoxContents,
       box: state.box.pickUpDate,
-      addedVegetables: state.box.vegetables
+      unsavedBoxContents: state.box.unsavedBoxContents
   }
 }
 

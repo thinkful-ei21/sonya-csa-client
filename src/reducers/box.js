@@ -10,8 +10,8 @@ import {
 } from '../actions/boxes';
 
 const initialState = {
-  vegetables: [],
-  boxContents: null,
+  unsavedBoxContents: [],
+  savedBoxContents: null,
   pickUpDate: null,
   data: null,
   error: null
@@ -21,52 +21,56 @@ export default function reducer(state = initialState, action) {
   if (action.type === FETCH_BOX_SUCCESS) {
         if (action.data.boxContents.length === 0) {  
             return Object.assign({}, state, {
-                boxContents: null,
+                unsavedBoxContents: [],
+                saveddBoxContents: null,
                 pickUpDate: action.data.pickUpDate,
                 error: null
             });
         } else {
         return Object.assign({}, state, {
-            boxContents: action.data.boxContents,
+            unsavedBoxContents: [],
+            savedBoxContents: action.data.BoxContents,
             pickUpDate: action.data.pickUpDate,
             error: null
       });
     }
   } else if (action.type === FETCH_BOX_ERROR) {
       return Object.assign({}, state, {
-          boxContents: null,
+          savedBoxContents: null,
           pickUpDate: null,
           error: action.error
       });
   } else if (action.type === CREATE_BOX_SUCCESS) {
       return Object.assign({}, state, {
-          boxContents: null,
+          unsavedBoxContents: [],
+          savedBoxContents: null,
           pickUpDate: action.data.pickUpDate,
           error: null
       });
   } else if (action.type === CREATE_BOX_ERROR) {
       return Object.assign({}, state, {
-        boxContents: null,
+        savedBoxContents: null,
         pickUpDate: null,
         error: action.error
       });
   } else if (action.type === ADD_VEGETABLE) {
         return Object.assign({}, state, {
-            vegetables: [...state.vegetables, action.vegetable],
+            unsavedBoxContents: action.vegetable,
         });  
   } else if (action.type === RESET_VEGETABLE_ADD_LIST) {
       return Object.assign({}, state, {
-          vegetables: []
+          unsavedBoxContents: []
       });
   } else if (action.type === UPDATE_BOX_SUCCESS) {
       return Object.assign({}, state, {
-          boxContents: action.data.boxContents,
+          unsavedBoxContents: [],
+          savedBoxContents: action.data.BoxContents,
           pickUpDate: action.data.pickUpDate,
           error: null
       });
   } else if (action.type === UPDATE_BOX_ERROR) {
       return Object.assign({}, state, {
-          boxContents: null,
+          savedBoxContents: null,
           pickUpDate: null,
           error: action.error
       })
