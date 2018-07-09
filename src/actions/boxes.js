@@ -31,6 +31,12 @@ export const addVegetable = vegetable => ({
     vegetable
 });
 
+export const DELETE_VEGETABLE = 'DELETE_VEGETABLE';
+export const deleteVegetable = index => ({
+    type: DELETE_VEGETABLE,
+    index
+});
+
 export const SET_SELECT_DISPLAY_BOOLEAN = 'SET_SELECT_DISPLAY_BOOLEAN';
 export const setSelectDisplayBoolean = () => ({
   type: SET_SELECT_DISPLAY_BOOLEAN    
@@ -47,6 +53,11 @@ export const updateBoxError = error => ({
     type: UPDATE_BOX_ERROR,
     error
 });
+
+export const BOX_CONTENT_ERROR = 'BOX_CONTENT_ERROR';
+export const boxContentError = () => ({
+    type: BOX_CONTENT_ERROR
+})
 
 export const createBox = (pickUpDate) => (dispatch, getState) => {
     const authToken = getState().auth.authToken;

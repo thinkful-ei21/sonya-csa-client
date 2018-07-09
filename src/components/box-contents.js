@@ -2,21 +2,14 @@ import React from 'react';
 import {connect} from 'react-redux';
 
 import requiresLogin from './requires-login';
+import {deleteVegetable, setSelectDisplayBoolean} from '../actions/boxes';
 
 export class BoxContents extends React.Component {
-  constructor(props) {
-    super(props);
 
-    this.listItem = null;
-    this.listItemRef = listItem => {
-      this.listItem = listItem
-    }
-  }
-
-
-  deleteItem = () => {
-    console.log(this.listItem);
-    //this.dispatch(deleteVegetableChoice())
+  deleteItem = (e) => {
+    console.log(e.target.getAttribute('id'));
+    this.props.dispatch(deleteVegetable(e.target.getAttribute('id')));
+    this.props.dispatch(setSelectDisplayBoolean());
   }
 
   render() {
@@ -24,21 +17,21 @@ export class BoxContents extends React.Component {
    console.log('savedBoxContents:', this.props.savedBoxContents);
    console.log('rendering box-content');
    if (this.props.savedBoxContents) {
+    console.log('rendering savedBoxContents: ', this.props.savedBoxContents);
     for (let i = 0; i < this.props.savedBoxContents.length; i++) {
-      console.log('rendering savedBoxContents: ', this.props.savedBoxContents);
       vegetableList.push(
-        <div key={`div-${i}`} className='saved-box-item'>
-          <li key={`li-${i}`} className='box-content' ref={this.listItemRef}>{this.props.savedBoxContents[i]}</li>
-          <button key={`button-${i}`} onClick={this.deleteItem}>x</button>
+        <div key={`${i}-div`}className='saved-box-item'>
+          <li key={`${i}-key`} className='box-content'>{this.props.savedBoxContents[i]}</li>
+          <button key={`${i}-button`} id={i} onClick={(e) => this.deleteItem(e)}>x</button>         
         </div>)
    }
    } else {
+    console.log('rendering unsavedBoxContents: ', this.props.unsavedBoxContents);
      for (let i = 0; i < this.props.unsavedBoxContents.length; i++) {
-       console.log('rendering unsavedBoxContents: ', this.props.unsavedBoxContents);
        vegetableList.push(
-         <div key={`div-${i}`} className='unsaved-box-item'>
-           <li key={`li-${i}`} ref={this.listItemRef} className='added-vegetable'>{this.props.unsavedBoxContents[i]}</li>);
-           <button key={`button-${i}`} onClick={this.deleteItem}>x</button>
+         <div key={`${i}-div`} className='unsaved-box-item'>
+           <li key={`${i}-li`} className='added-vegetable'>{this.props.unsavedBoxContents[i]}</li>
+           <button key={`${i}-button`} id={i} onClick={(e) => this.deleteItem(e)}>x</button>
          </div>)
      }
    }

@@ -2,7 +2,14 @@ import React from 'react';
 import {connect} from 'react-redux'
 
 import requiresLogin from './requires-login';
-import {fetchBox, createBox, addVegetable, updateBox, setSelectDisplayBoolean} from '../actions/boxes';
+import {
+  fetchBox, 
+  createBox, 
+  addVegetable, 
+  updateBox, 
+  setSelectDisplayBoolean, 
+  boxContentError
+} from '../actions/boxes';
 import {fetchVegetables} from '../actions/vegetables';
 import BoxContents from './box-contents';
 
@@ -36,17 +43,32 @@ export class BoxPage extends React.Component {
   }
 
   onSave = (e) => {
+    e.preventDefault();
+
     const date = this.props.match.params.date;
     //map through added vegetables and generate array of box content objects
-    const addedVegetables = this.props.unsavedBoxContents.map(vegetable => {
-      return vegetable      
-    });
+    const addedVegetables = [];
+    
+    if (this.props.unsavedBoxContents) {
+      this.props.unsavedBoxContents.map(vegetable => {
+       return addedVegetables.push(vegetable);
+      });
+    } else {
+      this.props.savedBoxContents.map(vegetable => {
+       return addedVegetables.push(vegetable);
+      })
+    }
+
     const boxContents = {
       boxContents: addedVegetables
     }
-    e.preventDefault();
+
+   if (boxContents.boxContents.length !== 8) {
+     this.props.dispatch(boxContentError())
+   } else {
     this.props.dispatch(updateBox(boxContents, date))
   }
+}
 
   onSubmit = (e) => {
     e.preventDefault();
@@ -59,18 +81,39 @@ export class BoxPage extends React.Component {
   render() {
     const vegetableOptions = [];
     // if no vegetables have been selected provide all vegetable options to user
-    if (this.props.unsavedBoxContents === []) {
-      for (let i = 0; i < this.props.vegetables.length; i++) {
-       return vegetableOptions.push(<option key={i} value={this.props.vegetables[i].name}>{this.props.vegetables[i].name}</option>)
-      }
-     } else {
-       //remove already selected vegetables from the list of options
+    console.log('the box-page is rendering')
+    // if (this.props.unsavedBoxContents === []) {
+    //   console.log('box-page is rendering unsavedBoxContents')
+    //   for (let i = 0; i < this.props.vegetables.length; i++) {
+    //    return vegetableOptions.push(<option key={i} value={this.props.vegetables[i].name}>{this.props.vegetables[i].name}</option>)
+    //   }
+    //  } else if (this.props.unsavedBoxContents.length < 0) {
+    //    //remove already selected vegetables from the list of options
+    //    console.log('box-page is rendeirng filterd unsaved box contents')
+    //     const remainingChoices = this.props.vegetables.filter((vegetable) => {
+    //      return !(this.props.unsavedBoxContents.includes(vegetable.name))
+    //     })
+    //     for (let i = 0; i < remainingChoices.length; i++) {
+    //       vegetableOptions.push(<option key={i} value={remainingChoices[i].name}>{remainingChoices[i].name}</option>)
+    //     }
+    //     this.props.dispatch(setSelectDisplayBoolean());
+
+    if (this.props.unsavedBoxContents) {
+      const remainingChoices = this.props.vegetables.filter((vegetable) => {
+        return !(this.props.unsavedBoxContents.includes(vegetable.name))
+       })
+       for (let i = 0; i < remainingChoices.length; i++) {
+         vegetableOptions.push(<option key={i} value={remainingChoices[i].name}>{remainingChoices[i].name}</option>)
+       }
+       //this.props.dispatch(setSelectDisplayBoolean());
+    } else if (this.props.savedBoxContents) {
         const remainingChoices = this.props.vegetables.filter((vegetable) => {
-         return !(this.props.unsavedBoxContents.includes(vegetable.name))
-        })
-        for (let i = 0; i < remainingChoices.length; i++) {
-          vegetableOptions.push(<option key={i} value={remainingChoices[i].name}>{remainingChoices[i].name}</option>)
-        }
+          return !(this.props.savedBoxContents.includes(vegetable.name))
+         })
+         for (let i = 0; i < remainingChoices.length; i++) {
+           vegetableOptions.push(<option key={i} value={remainingChoices[i].name}>{remainingChoices[i].name}</option>)
+         }
+        // this.props.dispatch(setSelectDisplayBoolean());
       }
 
   return (
@@ -87,11 +130,12 @@ export class BoxPage extends React.Component {
           className='vegetable-select-button' >Add to Box</button>
       </form>
       <BoxContents />
-      <button type='submit' onClick={this.onSave}>Save</button>
+      <button type='submit' onClick={(e) => this.onSave(e)}>Save</button>
     </div>
   )
 }
-}
+  }
+
 const mapStateToProps = state => {
   const {currentUser} = state.auth;
   return {
