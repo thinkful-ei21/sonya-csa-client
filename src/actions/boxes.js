@@ -60,7 +60,7 @@ export const boxContentError = () => ({
 
 export const createBox = (pickUpDate) => (dispatch, getState) => {
     const authToken = getState().auth.authToken;
-    return fetch(`${API_BASE_URL}/box/${pickUpDate}`, {
+    return fetch(`${API_BASE_URL}box/${pickUpDate}`, {
         method: 'POST',
         headers: {
             Authorization: `Bearer ${authToken}`,
@@ -81,7 +81,7 @@ export const createBox = (pickUpDate) => (dispatch, getState) => {
 export const fetchBox = (pickUpDate) => (dispatch, getState) => {
   const authToken = getState().auth.authToken;
   console.log('fetching the requested box');
-     return fetch(`${API_BASE_URL}/box/${pickUpDate}`, {
+     return fetch(`${API_BASE_URL}box/${pickUpDate}`, {
         method: 'GET',
         headers: {
             // Provide our auth token as credentials
@@ -102,7 +102,7 @@ export const fetchBox = (pickUpDate) => (dispatch, getState) => {
 export const updateBox = (boxContents, pickUpDate) => (dispatch, getState) => {
     const authToken = getState().auth.authToken;
     console.log(boxContents);
-    return fetch(`${API_BASE_URL}/box/${pickUpDate}`, {
+    return fetch(`${API_BASE_URL}box/${pickUpDate}`, {
         method: 'PUT',
         headers: {
             Authorization: `Bearer ${authToken}`,

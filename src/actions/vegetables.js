@@ -16,7 +16,7 @@ export const fetchVegetablesError = error => ({
 
 export const fetchVegetables = () => (dispatch, getState) => {
   const authToken = getState().auth.authToken;
-  return fetch(`${API_BASE_URL}/vegetable`, {
+  return fetch(`${API_BASE_URL}vegetable`, {
       method: 'GET',
       headers: {
           Authorization: `Bearer ${authToken}`
