@@ -82,21 +82,6 @@ export class BoxPage extends React.Component {
     const vegetableOptions = [];
     // if no vegetables have been selected provide all vegetable options to user
     console.log('the box-page is rendering')
-    // if (this.props.unsavedBoxContents === []) {
-    //   console.log('box-page is rendering unsavedBoxContents')
-    //   for (let i = 0; i < this.props.vegetables.length; i++) {
-    //    return vegetableOptions.push(<option key={i} value={this.props.vegetables[i].name}>{this.props.vegetables[i].name}</option>)
-    //   }
-    //  } else if (this.props.unsavedBoxContents.length < 0) {
-    //    //remove already selected vegetables from the list of options
-    //    console.log('box-page is rendeirng filterd unsaved box contents')
-    //     const remainingChoices = this.props.vegetables.filter((vegetable) => {
-    //      return !(this.props.unsavedBoxContents.includes(vegetable.name))
-    //     })
-    //     for (let i = 0; i < remainingChoices.length; i++) {
-    //       vegetableOptions.push(<option key={i} value={remainingChoices[i].name}>{remainingChoices[i].name}</option>)
-    //     }
-    //     this.props.dispatch(setSelectDisplayBoolean());
 
     if (this.props.unsavedBoxContents) {
       const remainingChoices = this.props.vegetables.filter((vegetable) => {
@@ -120,7 +105,7 @@ export class BoxPage extends React.Component {
     <div className='box-builder container'>
       <form className={this.props.selectDisplay ? '' : 'hide-vegetable-selector-form'} 
         onSubmit={this.onSubmit}>
-        <label htmlFor='vegetable-selector'>Choose 8 vegetables from the list</label>
+        <label className='select-instructions' htmlFor='vegetable-selector'>Choose 8 vegetables from the list</label>
         <select className='vegetable-selector' 
           name='vegetable-selector' 
           ref={this.selectRef}>

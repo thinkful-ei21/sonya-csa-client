@@ -33,8 +33,8 @@ export class DateSelector extends React.Component {
     const  selectedMondays = mondays.filter(date => date.getMonth() === selectedMonth) 
     //create array of <li> elements for each Monday
     const list = selectedMondays.map((date, index) => {
-     return <li key={index}>
-        <Link to={`/box/${date.getFullYear()}${date.getMonth()}${date.getDate()}`}>{date.toDateString()}</Link>
+     return <li className='weeks-list' key={index}>
+        <Link to={`/box/${date.getFullYear()}${date.getMonth()}${date.getDate()}`} className='weeks-list'>{date.toDateString()}</Link>
      </li>
         });
 
@@ -57,7 +57,9 @@ export class DateSelector extends React.Component {
           <option value='11'>December</option>
         </select>
       </form>
-      {list}
+      <ul className='weeks-list'>
+        {list} 
+      </ul>
     </div>
   )
 }

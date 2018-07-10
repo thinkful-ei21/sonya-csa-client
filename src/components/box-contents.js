@@ -22,7 +22,7 @@ export class BoxContents extends React.Component {
       vegetableList.push(
         <div key={`${i}-div`}className='saved-box-item'>
           <li key={`${i}-key`} className='box-content'>{this.props.savedBoxContents[i]}</li>
-          <button key={`${i}-button`} id={i} onClick={(e) => this.deleteItem(e)}>x</button>         
+          <button key={`${i}-button`} type='button' className='delete-vegetable-button' id={i} onClick={(e) => this.deleteItem(e)}>x</button>         
         </div>)
    }
    } else {
@@ -31,7 +31,7 @@ export class BoxContents extends React.Component {
        vegetableList.push(
          <div key={`${i}-div`} className='unsaved-box-item'>
            <li key={`${i}-li`} className='added-vegetable'>{this.props.unsavedBoxContents[i]}</li>
-           <button key={`${i}-button`} id={i} onClick={(e) => this.deleteItem(e)}>x</button>
+           <button key={`${i}-button`} type='button' className='delete-vegetable-button' id={i} onClick={(e) => this.deleteItem(e)}>x</button>
          </div>)
      }
    }

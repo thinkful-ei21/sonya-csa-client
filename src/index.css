@@ -35,11 +35,11 @@ nav {
 }
 
 h1{
-	border: 5px solid black;
+	border: 5px solid #9de0bb;
 	padding: 4px;
 	width: 450px;
 	display: inline-block;
-	background-color: rgb(107, 11, 51, 0.7);
+	background-color: rgb(107, 11, 51, 0.75);
 	border-radius: 7px;
 }
 
@@ -61,15 +61,14 @@ h2.dashboard {
 
 .dashboard.container {
 	padding-top: 20px;
-
 }
 
 .container {
-	border: 5px solid black;
+	border: 5px solid #9de0bb;
 	display: inline-block;
 	padding: 20px;
 	width: 400px;
-	background-color:  rgb(107, 11, 51, 0.7);
+	background-color:  rgb(107, 11, 51, 0.8);
 	border-radius: 7px;
 }
 
@@ -93,6 +92,10 @@ label {
 	margin: 0;
 	font-size: 20px;
 	padding: 0;
+}
+
+label.select-instructions {
+	font-size: 25px;
 }
 
 button{
@@ -120,8 +123,44 @@ select{
 	background-color: #9de0bb;
 }
 
+select.vegetable-selector {
+	margin-top: 30px;
+}
+
+.unsaved-box-item, .saved-box-item, .box-content, .added-vegetable {
+	display: inline-block;
+	
+}
+
 .log-out-button{
 	right: 520px;
 }
 
+.delete-vegetable-button {
+	vertical-align: center;
+	width: 25px;
+	height: 25px;
+	padding: 0;
+	border-radius: 4px;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	/* margin: 0.8em; */
+	font-size: 18px; 
+	font: brown;
+	font-family: 'Marmelad', sans-serif;
+	background-color: #9de0bb;
+}
+
+ul, .weeks-list {
+	list-style-type: none;
+	color: #9de0bb;
+	text-decoration: none;
+	font-family: 'Marmelad', sans-serif;
+	padding: 10px;
+	font-size: 24px;
+}
+
+.week {
+
+}
 
