@@ -22,10 +22,10 @@ export class Dashboard extends React.Component {
     }
 
     return(  
-      <div>
+      <div className='container dashboard'>
         <h2>Welcome!</h2>
         <DateSelector />
-        <button onClick={() => this.logout()}>Log Out</button>
+        <button className='log-out-button' onClick={() => this.logout()}>Log Out</button>
       </div>
     )
   }

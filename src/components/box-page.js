@@ -117,7 +117,7 @@ export class BoxPage extends React.Component {
       }
 
   return (
-    <div className='box-builder'>
+    <div className='box-builder container'>
       <form className={this.props.selectDisplay ? '' : 'hide-vegetable-selector-form'} 
         onSubmit={this.onSubmit}>
         <label htmlFor='vegetable-selector'>Choose 8 vegetables from the list</label>

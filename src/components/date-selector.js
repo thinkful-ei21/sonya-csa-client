@@ -39,7 +39,7 @@ export class DateSelector extends React.Component {
         });
 
   return (
-    <div>
+    <div className='custom-select'>
       <form className='date-selector-form' >
         <select className='date-selector' ref={this.selectRef} onChange={this.handleChange} >
           <option value='12'>Select a Month</option>

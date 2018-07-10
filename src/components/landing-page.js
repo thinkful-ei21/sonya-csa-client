@@ -11,10 +11,14 @@ export function LandingPage(props) {
   }
 
   return(
-    <div className='home'>
+    <div className='home container'>
       <h2>Build Your CSA Box</h2>
       <LoginForm />
-      <Link to='/register'>Sign Up!</Link>
+      <Link to='/register'>
+        <button type='button'>
+          Sign Up!
+        </button>
+      </Link>
     </div>
   );
 }

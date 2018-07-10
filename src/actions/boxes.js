@@ -30,7 +30,6 @@ export const addVegetable = vegetable => ({
     type: ADD_VEGETABLE,
     vegetable
 });
-
 export const DELETE_VEGETABLE = 'DELETE_VEGETABLE';
 export const deleteVegetable = index => ({
     type: DELETE_VEGETABLE,
