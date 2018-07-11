@@ -10,6 +10,7 @@ import {
   DELETE_VEGETABLE,
   ERROR_MESSAGE,
   SUCCESS_MESSAGE,
+  SHOW_ABOUT_US,
 } from '../actions/boxes';
 
 const initialState = {
@@ -17,11 +18,11 @@ const initialState = {
   savedBoxContents: null,
   pickUpDate: null,
   displaySelectForm: true,
-  //saveInstructions: '',
   data: null,
   error: null,
   errorMessage: null,
-  successMessage: null
+  successMessage: null,
+  showAboutUs: false
 };
 
 export default function reducer(state = initialState, action) {
@@ -114,6 +115,10 @@ export default function reducer(state = initialState, action) {
   } else if (action.type === SUCCESS_MESSAGE) {
       return Object.assign({}, state, {
           successMessage: action.message
+      })
+  } else if (action.type === SHOW_ABOUT_US) {
+      return Object.assign({}, state, {
+          showAboutUs: Boolean(action.boolean)
       })
   }
   return state;

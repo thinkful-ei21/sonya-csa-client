@@ -8,6 +8,7 @@ import RegistrationPage from './registration-page';
 import Dashboard from './dashboard';
 import {refreshAuthToken} from '../actions/auth';
 import BoxPage from './box-page';
+import AboutUs from './about-us';
 
 export class App extends React.Component {
   componentDidUpdate(prevProps) {
@@ -47,6 +48,7 @@ stopPeriodicRefresh() {
         <Route exact path='/register' component={RegistrationPage} />
         <Route exact path='/dashboard' component={Dashboard} />
         <Route path='/box/:date' component={BoxPage} />
+        <Route exact path='/aboutus' component={AboutUs} />
       </main>
     )
   }

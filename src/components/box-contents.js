@@ -14,7 +14,7 @@ export class BoxContents extends React.Component {
   }
 
   render() {
-   const error = [];
+  
    const vegetableList = [];
    console.log('savedBoxContents:', this.props.savedBoxContents);
    console.log('rendering box-content');

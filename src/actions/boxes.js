@@ -65,6 +65,12 @@ export const successMessage = message => ({
     message
 });
 
+export const SHOW_ABOUT_US = 'SHOW_ABOUT_US';
+export const showAboutUs = boolean => ({
+    type: SHOW_ABOUT_US,
+    boolean
+});
+
 export const createBox = (pickUpDate) => (dispatch, getState) => {
     const authToken = getState().auth.authToken;
     return fetch(`${API_BASE_URL}box/${pickUpDate}`, {
