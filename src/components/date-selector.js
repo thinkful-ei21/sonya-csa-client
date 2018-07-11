@@ -23,8 +23,6 @@ export class DateSelector extends React.Component {
       month: this.value.value
     })
   }
-  
- 
 
   render() {
     //get Mondays for selected month

@@ -53,10 +53,17 @@ export const updateBoxError = error => ({
     error
 });
 
-export const BOX_CONTENT_ERROR = 'BOX_CONTENT_ERROR';
-export const boxContentError = () => ({
-    type: BOX_CONTENT_ERROR
-})
+export const ERROR_MESSAGE = 'ERROR_MESSAGE';
+export const errorMessage = message => ({
+    type: ERROR_MESSAGE,
+    message
+});
+
+export const SUCCESS_MESSAGE = 'SUCCESS_MESSAGE';
+export const successMessage = message => ({
+    type: SUCCESS_MESSAGE,
+    message
+});
 
 export const createBox = (pickUpDate) => (dispatch, getState) => {
     const authToken = getState().auth.authToken;
@@ -95,6 +102,7 @@ export const fetchBox = (pickUpDate) => (dispatch, getState) => {
           dispatch(fetchBoxSuccess(data))
       })
       .catch(err => {
+          //console.log(err);
           dispatch(fetchBoxError(err));
       });
 };

@@ -23,7 +23,7 @@ export class Dashboard extends React.Component {
 
     return(  
       <div className='container dashboard'>
-        <h2>Welcome!</h2>
+        <h2>Choose your box pickup date</h2>
         <DateSelector />
         <button className='log-out-button' onClick={() => this.logout()}>Log Out</button>
       </div>
@@ -36,7 +36,7 @@ const mapStateToProps = state => {
   return {
       loggedIn: state.auth.authToken !== null,
       username: state.auth.currentUser.username,
-      name: `${currentUser.firstName} ${currentUser.lastName}`
+      name: `${currentUser.firstName} ${currentUser.lastName}`,
   };
 };
 

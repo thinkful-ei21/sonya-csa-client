@@ -8,7 +8,8 @@ import {
   addVegetable, 
   updateBox, 
   setSelectDisplayBoolean, 
-  boxContentError
+  errorMessage,
+  successMessage
 } from '../actions/boxes';
 import {fetchVegetables} from '../actions/vegetables';
 import BoxContents from './box-contents';
@@ -64,9 +65,12 @@ export class BoxPage extends React.Component {
     }
 
    if (boxContents.boxContents.length !== 8) {
-     this.props.dispatch(boxContentError())
+     this.props.dispatch(errorMessage('Please select 8 items before saving.'));
+     this.props.dispatch(successMessage(''));
    } else {
-    this.props.dispatch(updateBox(boxContents, date))
+     this.props.dispatch(errorMessage(''));
+     this.props.dispatch(successMessage('Your choices have been saved!'));
+     this.props.dispatch(updateBox(boxContents, date));
   }
 }
 
@@ -103,6 +107,8 @@ export class BoxPage extends React.Component {
 
   return (
     <div className='box-builder container'>
+      <span className='save-instructions'>{this.props.saveInstructions}</span>
+      {/* <span className='box-content-error'>{this.props.boxContentError} */}
       <form className={this.props.selectDisplay ? '' : 'hide-vegetable-selector-form'} 
         onSubmit={this.onSubmit}>
         <label className='select-instructions' htmlFor='vegetable-selector'>Choose 8 vegetables from the list</label>
@@ -115,6 +121,8 @@ export class BoxPage extends React.Component {
           className='vegetable-select-button' >Add to Box</button>
       </form>
       <BoxContents />
+      <p>{this.props.errorMessage}</p>
+      <p>{this.props.successMessage}</p>
       <button type='submit' onClick={(e) => this.onSave(e)}>Save</button>
     </div>
   )
@@ -131,7 +139,10 @@ const mapStateToProps = state => {
       savedBoxContents: state.box.savedBoxContents,
       unsavedBoxContents: state.box.unsavedBoxContents,
       vegetables: state.vegetable.data,
-      selectDisplay: state.box.displaySelectForm
+      selectDisplay: state.box.displaySelectForm,
+      //saveInstructions: state.box.saveInstructions,
+      errorMessage: state.box.errorMessage,
+      successMessage: state.box.successMessage
   }
 };
 

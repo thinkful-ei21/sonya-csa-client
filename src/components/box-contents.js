@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 
 import requiresLogin from './requires-login';
-import {deleteVegetable, setSelectDisplayBoolean} from '../actions/boxes';
+import {deleteVegetable, setSelectDisplayBoolean, successMessage} from '../actions/boxes';
 
 export class BoxContents extends React.Component {
 
@@ -10,9 +10,11 @@ export class BoxContents extends React.Component {
     console.log(e.target.getAttribute('id'));
     this.props.dispatch(deleteVegetable(e.target.getAttribute('id')));
     this.props.dispatch(setSelectDisplayBoolean());
+    this.props.dispatch(successMessage(''));
   }
 
   render() {
+   const error = [];
    const vegetableList = [];
    console.log('savedBoxContents:', this.props.savedBoxContents);
    console.log('rendering box-content');
@@ -25,7 +27,7 @@ export class BoxContents extends React.Component {
           <button key={`${i}-button`} type='button' className='delete-vegetable-button' id={i} onClick={(e) => this.deleteItem(e)}>x</button>         
         </div>)
    }
-   } else {
+   } else if (this.props.unsavedBoxContents) {
     console.log('rendering unsavedBoxContents: ', this.props.unsavedBoxContents);
      for (let i = 0; i < this.props.unsavedBoxContents.length; i++) {
        vegetableList.push(
@@ -34,11 +36,13 @@ export class BoxContents extends React.Component {
            <button key={`${i}-button`} type='button' className='delete-vegetable-button' id={i} onClick={(e) => this.deleteItem(e)}>x</button>
          </div>)
      }
-   }
+     } else {
+       return vegetableList;
+     }
    
   return (
     <ul>
-    {vegetableList}
+      {vegetableList}
     </ul>
   )
   }

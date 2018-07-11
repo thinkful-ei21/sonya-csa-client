@@ -8,7 +8,8 @@ import {
   UPDATE_BOX_ERROR,
   SET_SELECT_DISPLAY_BOOLEAN,
   DELETE_VEGETABLE,
-  BOX_CONTENT_ERROR
+  ERROR_MESSAGE,
+  SUCCESS_MESSAGE,
 } from '../actions/boxes';
 
 const initialState = {
@@ -16,8 +17,11 @@ const initialState = {
   savedBoxContents: null,
   pickUpDate: null,
   displaySelectForm: true,
+  //saveInstructions: '',
   data: null,
-  error: null
+  error: null,
+  errorMessage: null,
+  successMessage: null
 };
 
 export default function reducer(state = initialState, action) {
@@ -73,11 +77,13 @@ export default function reducer(state = initialState, action) {
       //console.log('unsavedBoxContents: ', state.unsavedBoxContents);
       if ((state.savedBoxContents && state.savedBoxContents.length === 8) || (state.unsavedBoxContents && state.unsavedBoxContents.length === 8)) {
         return Object.assign({}, state, {
-            displaySelectForm: false
+            displaySelectForm: false,
+            //saveInstructions: 'When you are happy with your 8 choices, save your box.  You can always come back and change them later.'
         })
       } else {
           return Object.assign({}, state, {
-              displaySelectForm: true
+              displaySelectForm: true,
+              saveInstructions: ''
           })
       }
   } else if (action.type === UPDATE_BOX_SUCCESS) {
@@ -89,9 +95,6 @@ export default function reducer(state = initialState, action) {
       });
   } else if (action.type === UPDATE_BOX_ERROR) {
       return Object.assign({}, state, {
-        unsavedBoxContents: null,
-        savedBoxContents: null,
-        pickUpDate: null,
         error: action.error
       })
   } else if (action.type === DELETE_VEGETABLE) {
@@ -104,9 +107,13 @@ export default function reducer(state = initialState, action) {
               savedBoxContents: state.savedBoxContents.filter((vegetable, index) => index !== Number(action.index))
           })
       }   
-  } else if (action.type === BOX_CONTENT_ERROR) {
+  } else if (action.type === ERROR_MESSAGE) {
       return Object.assign({}, state, {
-          error: 'You must choose 8 vegetables before saving'
+          errorMessage: action.message
+      })
+  } else if (action.type === SUCCESS_MESSAGE) {
+      return Object.assign({}, state, {
+          successMessage: action.message
       })
   }
   return state;
