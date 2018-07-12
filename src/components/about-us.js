@@ -2,16 +2,16 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {Redirect} from 'react-router-dom';
 
-import {showAboutUs} from '../actions/boxes';
+import {showAbout} from '../actions/boxes';
 
-export class AboutUs extends React.Component {
+export class About extends React.Component {
 
   onClick = () => {
-    this.props.dispatch(showAboutUs(false))
+    this.props.dispatch(showAbout(false))
   }
 
   render() {
-    if (!this.props.showAboutUs) {
+    if (!this.props.showAbout) {
       return <Redirect to='/dashboard' />
     }
     return (
@@ -51,8 +51,8 @@ const mapStateToProps = state => {
   return {
       errorMessage: state.box.errorMessage,
       successMessage: state.box.successMessage,
-      showAboutUs: state.box.showAboutUs
+      showAbout: state.box.showAbout
   }
 };
 
-export default (connect(mapStateToProps)(AboutUs));
+export default (connect(mapStateToProps)(About));

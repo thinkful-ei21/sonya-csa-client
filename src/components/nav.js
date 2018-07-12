@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {Redirect} from 'react-router-dom';
 
-import {showAboutUs} from '../actions/boxes';
+import {showAbout} from '../actions/boxes';
 import {clearAuth} from '../actions/auth'
 
 export class Nav extends React.Component {
@@ -12,7 +12,7 @@ export class Nav extends React.Component {
   // }
   
   onClick = () => {
-    this.props.dispatch(showAboutUs(true));
+    this.props.dispatch(showAbout(true));
   }
 
   logout() {
@@ -24,16 +24,16 @@ export class Nav extends React.Component {
 
 
   render() {
-   const aboutUsButton = [];
-   if (this.props.showAboutUs) {
-    return <Redirect to='/aboutus' />
+   const aboutButton = [];
+   if (this.props.showAbout) {
+    return <Redirect to='/about' />
    } else {
-    aboutUsButton.push(<button type='button' className='about-us-button' onClick={() => this.onClick()}>About Us</button>);
+    aboutButton.push(<button key='about-button' type='button' className='about-button' onClick={() => this.onClick()}>About Us</button>);
    }
    
    const logOutButton = [];
    if (this.props.loggedIn) {
-     logOutButton.push(<button type='button' className='log-out-button' onClick={() => this.logout()}>Log Out</button>);
+     logOutButton.push(<button type='button' key='logout-button' className='logout-button' onClick={() => this.logout()}>Log Out</button>);
    }
 
     return(
@@ -41,7 +41,7 @@ export class Nav extends React.Component {
       <header>
         <nav role='navigation'>
           <ul>
-            <li>{aboutUsButton}</li>
+            <li>{aboutButton}</li>
             <li>{logOutButton}</li>
             {/* <li>{dashboard}</li> */}
           </ul>
@@ -54,17 +54,14 @@ export class Nav extends React.Component {
   }
 
     const mapStateToProps = state => {
-      // const {currentUser} = state.auth;
       return {
           loggedIn: state.auth.authToken !== null,
-          // username: state.auth.currentUser.username,
-          // name: `${currentUser.firstName} ${currentUser.lastName}`,
           errorMessage: state.box.errorMessage,
           successMessage: state.box.successMessage,
-          showAboutUs: state.box.showAboutUs
+          showAbout: state.box.showAbout
       }
     };
     
-    export default (connect(mapStateToProps)(Nav));
+    export default connect(mapStateToProps)(Nav);
   
   

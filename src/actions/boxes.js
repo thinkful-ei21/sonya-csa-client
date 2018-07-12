@@ -65,9 +65,9 @@ export const successMessage = message => ({
     message
 });
 
-export const SHOW_ABOUT_US = 'SHOW_ABOUT_US';
-export const showAboutUs = boolean => ({
-    type: SHOW_ABOUT_US,
+export const SHOW_ABOUT = 'SHOW_ABOUT';
+export const showAbout = boolean => ({
+    type: SHOW_ABOUT,
     boolean
 });
 

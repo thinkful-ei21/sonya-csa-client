@@ -10,7 +10,7 @@ import {
   DELETE_VEGETABLE,
   ERROR_MESSAGE,
   SUCCESS_MESSAGE,
-  SHOW_ABOUT_US,
+  SHOW_ABOUT
 } from '../actions/boxes';
 
 const initialState = {
@@ -22,7 +22,7 @@ const initialState = {
   error: null,
   errorMessage: null,
   successMessage: null,
-  showAboutUs: false
+  showAbout: false
 };
 
 export default function reducer(state = initialState, action) {
@@ -116,9 +116,9 @@ export default function reducer(state = initialState, action) {
       return Object.assign({}, state, {
           successMessage: action.message
       })
-  } else if (action.type === SHOW_ABOUT_US) {
+  } else if (action.type === SHOW_ABOUT) {
       return Object.assign({}, state, {
-          showAboutUs: action.boolean
+          showAbout: action.boolean
       })
   }
   return state;
