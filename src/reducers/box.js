@@ -118,7 +118,7 @@ export default function reducer(state = initialState, action) {
       })
   } else if (action.type === SHOW_ABOUT_US) {
       return Object.assign({}, state, {
-          showAboutUs: Boolean(action.boolean)
+          showAboutUs: action.boolean
       })
   }
   return state;
