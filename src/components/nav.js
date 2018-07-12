@@ -16,10 +16,10 @@ export class Nav extends React.Component {
   }
 
   logout() {
+    this.props.dispatch(clearAuth());
     if (localStorage.getItem('authToken')) {
       localStorage.removeItem('authToken');
     }
-    this.props.dispatch(clearAuth());
   }
 
 
