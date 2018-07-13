@@ -8,13 +8,6 @@ import DateSelector from './date-selector';
 
 export class Dashboard extends React.Component {
 
-  // logout() {
-  //   if (localStorage.getItem('authToken')) {
-  //     localStorage.removeItem('authToken');
-  //   }
-  //   this.props.dispatch(clearAuth());
-  // }
-
   render() {
     if (!this.props.loggedIn) {
      return <Redirect to='/' />
@@ -24,7 +17,6 @@ export class Dashboard extends React.Component {
       <div className='container dashboard'>
         <h2>Choose your box pickup date</h2>
         <DateSelector />
-        {/* <button className='log-out-button' onClick={() => this.logout()}>Log Out</button> */}
       </div>
     )
   }
