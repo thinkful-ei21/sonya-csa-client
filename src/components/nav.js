@@ -39,7 +39,7 @@ export class Nav extends React.Component {
     return(
       
       <header role='banner'>
-        <nav role='navigation'>
+        <nav>
           <ul>
             <li>{aboutButton}</li>
             <li>{logOutButton}</li>
