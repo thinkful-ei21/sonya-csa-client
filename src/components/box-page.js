@@ -94,7 +94,7 @@ export class BoxPage extends React.Component {
        for (let i = 0; i < remainingChoices.length; i++) {
          vegetableOptions.push(<option key={i} value={remainingChoices[i].name}>{remainingChoices[i].name}</option>)
        }
-       //this.props.dispatch(setSelectDisplayBoolean());
+    // filter out any options that have already been selected
     } else if (this.props.savedBoxContents) {
         const remainingChoices = this.props.vegetables.filter((vegetable) => {
           return !(this.props.savedBoxContents.includes(vegetable.name))
@@ -102,18 +102,17 @@ export class BoxPage extends React.Component {
          for (let i = 0; i < remainingChoices.length; i++) {
            vegetableOptions.push(<option key={i} value={remainingChoices[i].name}>{remainingChoices[i].name}</option>)
          }
-        // this.props.dispatch(setSelectDisplayBoolean());
-      }
+        }
 
   return (
     <div className='box-builder container'>
-      <span className='save-instructions'>{this.props.saveInstructions}</span>
-      {/* <span className='box-content-error'>{this.props.boxContentError} */}
-      <form className={this.props.selectDisplay ? '' : 'hide-vegetable-selector-form'} 
+      <form className={this.props.selectDisplay ? '' : 'hide-vegetable-selector-form'} id='vegetable-select-form'
         onSubmit={this.onSubmit}>
         <label className='select-instructions' htmlFor='vegetable-selector'>Choose 8 vegetables from the list</label>
         <select className='vegetable-selector' 
           name='vegetable-selector' 
+          id='vegetable-selector'
+          aria-labelledby='vegetable-selector vegetable-selector-form'
           ref={this.selectRef}>
           {vegetableOptions}
         </select>
@@ -140,7 +139,6 @@ const mapStateToProps = state => {
       unsavedBoxContents: state.box.unsavedBoxContents,
       vegetables: state.vegetable.data,
       selectDisplay: state.box.displaySelectForm,
-      //saveInstructions: state.box.saveInstructions,
       errorMessage: state.box.errorMessage,
       successMessage: state.box.successMessage
   }

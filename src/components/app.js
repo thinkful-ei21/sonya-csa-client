@@ -42,7 +42,7 @@ stopPeriodicRefresh() {
   
   render() {
     return (
-      <main>
+      <main role='main'>
         <Nav />
         <Route exact path='/' component={LandingPage} />
         <Route exact path='/register' component={RegistrationPage} />

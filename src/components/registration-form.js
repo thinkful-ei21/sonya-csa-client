@@ -20,19 +20,31 @@ export class RegistrationForm extends React.Component {
     render() {
         return (
             <form
-                className='login-form'
+                className='registration-form'
                 onSubmit={this.props.handleSubmit(values =>
                     this.onSubmit(values)
                 )}>
                 <label htmlFor='firstName'>First name</label>
-                <Field component={Input} type='text' name='firstName' />
+                <Field 
+                    component={Input} 
+                    type='text' 
+                    name='firstName' 
+                    id='firstName' 
+                    aria-labelledby='registration-form firstName'/>
                 <label htmlFor='lastName'>Last name</label>
-                <Field component={Input} type='text' name='lastName' />
+                <Field 
+                    component={Input} 
+                    type='text'
+                    name='lastName' 
+                    id='lastName' 
+                    aria-labelledby='registration-form lastName' />
                 <label htmlFor='username'>Username</label>
                 <Field
                     component={Input}
                     type='text'
                     name='username'
+                    id='username'
+                    aria-labelledby='registration-form username'
                     validate={[required, nonEmpty, isTrimmed]}
                 />
                 <label htmlFor='password'>Password</label>
@@ -40,6 +52,8 @@ export class RegistrationForm extends React.Component {
                     component={Input}
                     type='password'
                     name='password'
+                    id='password'
+                    aria-labelledby='registration-form password'
                     validate={[required, passwordLength, isTrimmed]}
                 />
                 <label htmlFor='passwordConfirm'>Confirm password</label>
@@ -47,6 +61,8 @@ export class RegistrationForm extends React.Component {
                     component={Input}
                     type='password'
                     name='passwordConfirm'
+                    id='passwordConfirm'
+                    aria-labelledby='registration-form passwordConfirm'
                     validate={[required, nonEmpty, matchesPassword]}
                 />
                 <button

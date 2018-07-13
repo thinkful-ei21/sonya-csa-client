@@ -47,7 +47,7 @@ h1 {
 		font-size: 40px;
 		width: 500px;
 		display: inline-block;
-		background-color: rgb(107, 11, 51, 0.75);
+		background-color: rgb(107, 11, 51, 0.85);
 		border-radius: 7px;
 		/* position: relative; */
 		right: 123px;
@@ -58,7 +58,7 @@ h1 {
 		display: inline-block;
 		padding: 20px;
 		width: 450px;
-		background-color:  rgb(107, 11, 51, 0.8);
+		background-color:  rgb(107, 11, 51, 0.85);
 		border-radius: 7px;
 	}
 	}

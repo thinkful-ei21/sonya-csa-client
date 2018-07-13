@@ -38,7 +38,7 @@ export class Nav extends React.Component {
 
     return(
       
-      <header>
+      <header role='banner'>
         <nav role='navigation'>
           <ul>
             <li>{aboutButton}</li>
