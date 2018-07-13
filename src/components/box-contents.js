@@ -18,6 +18,8 @@ export class BoxContents extends React.Component {
    const vegetableList = [];
    console.log('savedBoxContents:', this.props.savedBoxContents);
    console.log('rendering box-content');
+
+   //if box has peviously saved contents, render them in a list
    if (this.props.savedBoxContents) {
     console.log('rendering savedBoxContents: ', this.props.savedBoxContents);
     for (let i = 0; i < this.props.savedBoxContents.length; i++) {
@@ -35,6 +37,7 @@ export class BoxContents extends React.Component {
             </button>         
         </div>)
    }
+   //if no contents have been saved render selected contents in a list
    } else if (this.props.unsavedBoxContents) {
     console.log('rendering unsavedBoxContents: ', this.props.unsavedBoxContents);
      for (let i = 0; i < this.props.unsavedBoxContents.length; i++) {
