@@ -8,4 +8,12 @@ https://csa-box-builder.herokuapp.com/
 
 ![Login Page](./screen-shots/login.png)
 ![Dashboard](./screen-shots/dashboard.png)
-![box-page](./screen-shots/box-page.png)
+![box-page](./screen-shots/adding-items.png)
+
+This app was bootsrapped with:
+ - React/Redux
+ - Node.js/Express
+ - MongoDB/Mongoose
+ - Enzyme/Jest
+ - JWT/bcryptjs/passport
+
